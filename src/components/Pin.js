@@ -7,6 +7,7 @@ import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import { urlFor ,client} from '../client'
 import { fetchUser } from '../utils/fetchUser';
 const Pin = ({pin}) => {
+    console.log("Running in this file")
     const [postHovered,setPostHovered]=useState(false)
     const [savingPost,setSavingPost]=useState(false)
     const navigate=useNavigate();
