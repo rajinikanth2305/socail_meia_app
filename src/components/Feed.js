@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
 import { client } from '../client';
 import { feedQuery, searchQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
@@ -35,7 +34,9 @@ const Feed = () => {
     );
   }
   if (!pins?.length) {
-     return <h2>No pins available</h2>;
+     return (
+       <h2>No pins available</h2>
+     );
   }
   return (
     <div>
