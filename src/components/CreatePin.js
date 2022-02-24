@@ -8,7 +8,7 @@ import { client } from '../client';
 import Spinner from './Spinner';
 
 const CreatePin = ({ user }) => {
-  console.log("Adding pin")
+  console.log('Adding pin');
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
   const [loading, setLoading] = useState(false);
