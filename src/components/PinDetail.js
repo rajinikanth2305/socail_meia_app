@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MdDownloadForOffline } from 'react-icons/md';
 import { Link, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-
+const Filter = require("bad-words");
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
@@ -21,7 +21,7 @@ const PinDetail = ({ user }) => {
     if (query) {
       client.fetch(`${query}`).then((data) => {
         setPinDetail(data[0]);
-        console.log(data);
+        console.log(data[0],"checking data");
         if (data[0]) {
           const query1 = pinDetailMorePinQuery(data[0]);
           client.fetch(query1).then((res) => {
@@ -39,6 +39,13 @@ const PinDetail = ({ user }) => {
   const addComment = () => {
     if (comment) {
       setAddingComment(true);
+	   const filter = new Filter();
+     if (filter.isProfane(comment)) {
+       alert("Profinity is not allowed");
+	   setComment("");
+     setAddingComment(false);
+       return;
+     }
 
       client
         .patch(pinId)
@@ -69,10 +76,12 @@ const PinDetail = ({ user }) => {
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
               alt="user-post"
             />
+
           </div>
           <div className="w-full p-5 flex-1 xl:min-w-620">
             <div className="flex items-center justify-between">
               <div className="flex gap-2 items-center">
+			  {pinDetail.downloadPin &&
                 <a
                   href={`${pinDetail.image.asset.url}?dl=`}
                   download
@@ -80,6 +89,7 @@ const PinDetail = ({ user }) => {
                 >
                   <MdDownloadForOffline />
                 </a>
+			  }
               </div>
               <a href={pinDetail.destination} target="_blank" rel="noreferrer">
                 {pinDetail.destination?.slice(8)}
