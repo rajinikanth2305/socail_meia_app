@@ -2,6 +2,9 @@
   "name": "shareme_frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@sanity/client": "^2.21.10",
     "@sanity/image-url": "^1.0.1",
